@@ -24,7 +24,8 @@ var (
 	Logger *zap.Logger
 )
 
-type Log struct {
+// Options 参数选项
+type Options struct {
 	FileName  string `json:"file_name"`
 	MaxSize   int    `json:"max_size"`
 	MaxAge    int    `json:"max_age"`
@@ -35,11 +36,11 @@ type Log struct {
 	Level     string `json:"level"`
 }
 
-type Option func(*Log)
+type Option func(*Options)
 
 // NewLogger 构造方法
-func NewLogger(options ...Option) *Log {
-	c := &Log{
+func NewLogger(options ...Option) *Options {
+	c := &Options{
 		FileName:  "nautilus", // 日志文件
 		MaxSize:   64,         // 每个日志文件保存的最大尺寸 单位：mb
 		MaxAge:    30,         // 最多保存多少天
@@ -57,7 +58,7 @@ func NewLogger(options ...Option) *Log {
 }
 
 // Init 初始化
-func (l *Log) Init() {
+func (l *Options) Init() {
 
 	// 获取日志写入介质
 	logWriterStore := l.logWriteStore()
@@ -78,7 +79,7 @@ func (l *Log) Init() {
 }
 
 // 设置日志存储格式
-func (l *Log) encoder() zapcore.Encoder {
+func (l *Options) encoder() zapcore.Encoder {
 	config := zapcore.EncoderConfig{
 		MessageKey:          "message",
 		LevelKey:            "level",
@@ -107,12 +108,12 @@ func (l *Log) encoder() zapcore.Encoder {
 }
 
 // 自定义友好的时间格式
-func (l *Log) customTimeEncoder(t time.Time, enc zapcore.PrimitiveArrayEncoder) {
+func (l *Options) customTimeEncoder(t time.Time, enc zapcore.PrimitiveArrayEncoder) {
 	enc.AppendString(t.Format("2006-01-02 15:04:05"))
 }
 
 // 存储介质
-func (l *Log) logWriteStore() zapcore.WriteSyncer {
+func (l *Options) logWriteStore() zapcore.WriteSyncer {
 	var (
 		logName  string
 		fileName string

@@ -1,5 +1,5 @@
 // +----------------------------------------------------------------------
-// | nautilus [ cache interface ]
+// | nautilus [ redis implements cache ]
 // +----------------------------------------------------------------------
 // | Copyright (c) 2013~2024 https://www.secdos.com All rights reserved.
 // +----------------------------------------------------------------------
@@ -35,8 +35,8 @@ func NewRedisCache(address, username, password, prefix string, db int) *RedisCac
 	return rc
 }
 
-func (r *RedisCache) Set(key string, value string, expire time.Duration) {
-	r.client.Set(context.Background(), r.prefix+key, value, expire)
+func (r *RedisCache) Set(key string, value string, expire time.Duration) error {
+	return r.client.Set(context.Background(), r.prefix+key, value, expire).Err()
 }
 
 func (r *RedisCache) Get(key string) string {

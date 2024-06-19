@@ -11,37 +11,37 @@
 package logger
 
 func WithFileName(filename string) Option {
-	return func(l *Logger) {
+	return func(l *Options) {
 		l.FileName = filename
 	}
 }
 
 func WithMaxSize(maxSize int) Option {
-	return func(l *Logger) {
+	return func(l *Options) {
 		l.MaxSize = maxSize
 	}
 }
 
 func WithMaxAge(maxAge int) Option {
-	return func(l *Logger) {
+	return func(l *Options) {
 		l.MaxAge = maxAge
 	}
 }
 
 func WithMaxBackup(maxBackup int) Option {
-	return func(l *Logger) {
+	return func(l *Options) {
 		l.MaxBackup = maxBackup
 	}
 }
 
 func WithCompress(compress bool) Option {
-	return func(l *Logger) {
+	return func(l *Options) {
 		l.Compress = compress
 	}
 }
 
-func WithLogType(logType string) Option {
-	return func(l *Logger) {
+func WithOptionsType(logType string) Option {
+	return func(l *Options) {
 		l.LogType = logType
 	}
 }

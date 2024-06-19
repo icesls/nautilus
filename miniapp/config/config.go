@@ -1,5 +1,5 @@
 // +----------------------------------------------------------------------
-// | nautilus [ cache interface ]
+// | nautilus [ officialAccount config ]
 // +----------------------------------------------------------------------
 // | Copyright (c) 2013~2024 https://www.secdos.com All rights reserved.
 // +----------------------------------------------------------------------
@@ -8,13 +8,12 @@
 // | Author: ︶ㄣ逍遥楓 <admin@secdos.com>
 // +----------------------------------------------------------------------
 
-package cache
+package config
 
-import "time"
+import "github.com/icesls/nautilus/kernel/cache"
 
-type IStore interface {
-	Set(key, value string, expired time.Duration) error
-	Get(key string) string
-	Has(key string) bool
-	Del(key string) error
+type Config struct {
+	AppID     string `json:"app_id"`
+	AppSecret string `json:"app_secret"`
+	Cache     cache.IStore
 }

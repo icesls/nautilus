@@ -36,10 +36,23 @@ func Init(store IStore) {
 }
 
 // Set 设置缓存
-func Set(key string, value any, expire time.Duration) {
-	val, err := json.Marshal(value)
-	logger.LogIf(err)
-	Cache.Store.Set(key, string(val), expire)
+func Set(key string, value any, expired time.Duration) error {
+	var (
+		err error
+		val []byte
+	)
+	val, err = json.Marshal(value)
+	if err != nil {
+		logger.LogIf(err)
+		return err
+	}
+
+	err = Cache.Store.Set(key, string(val), expired)
+	if err != nil {
+		logger.LogIf(err)
+	}
+
+	return err
 }
 
 // Get 获取缓存内容
