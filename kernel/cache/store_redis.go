@@ -21,16 +21,23 @@ type RedisCache struct {
 	prefix string
 }
 
+var (
+	rc *RedisCache
+)
+
 // NewRedisCache 初始配置信息
 func NewRedisCache(address, username, password, prefix string, db int) *RedisCache {
-	rc := &RedisCache{}
-	rc.client = redis.NewClient(&redis.Options{
-		Addr:     address,
-		Username: username,
-		Password: password,
-		DB:       db,
+	once.Do(func() {
+		rc = &RedisCache{
+			client: redis.NewClient(&redis.Options{
+				Addr:     address,
+				Username: username,
+				Password: password,
+				DB:       db,
+			}),
+			prefix: prefix + ":cache:",
+		}
 	})
-	rc.prefix = prefix + ":cache:"
 
 	return rc
 }
