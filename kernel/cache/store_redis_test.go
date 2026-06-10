@@ -1,9 +1,10 @@
 package cache
 
 import (
-	"github.com/go-redis/redis/v8"
 	"testing"
 	"time"
+
+	"github.com/go-redis/redis/v8"
 )
 
 func TestRedisCache_Set(t *testing.T) {

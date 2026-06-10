@@ -12,9 +12,10 @@ package cache
 
 import (
 	"encoding/json"
-	"github.com/icesls/nautilus/kernel/logger"
 	"sync"
 	"time"
+
+	"github.com/icesls/nautilus/kernel/logger"
 )
 
 var (

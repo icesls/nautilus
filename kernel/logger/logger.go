@@ -11,13 +11,14 @@
 package logger
 
 import (
+	"os"
+	"strings"
+	"time"
+
 	"github.com/icesls/nautilus/kernel/utils"
 	"go.uber.org/zap"
 	"go.uber.org/zap/zapcore"
 	"gopkg.in/natefinch/lumberjack.v2"
-	"os"
-	"strings"
-	"time"
 )
 
 var (
@@ -109,7 +110,7 @@ func (l *Options) encoder() zapcore.Encoder {
 
 // 自定义友好的时间格式
 func (l *Options) customTimeEncoder(t time.Time, enc zapcore.PrimitiveArrayEncoder) {
-	enc.AppendString(t.Format("2006-01-02 15:04:05"))
+	enc.AppendString(t.Format(time.DateTime))
 }
 
 // 存储介质
